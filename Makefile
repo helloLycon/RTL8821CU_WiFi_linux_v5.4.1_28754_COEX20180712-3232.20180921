@@ -1416,7 +1416,7 @@ ifeq ($(CONFIG_PLATFORM_MIPS_AR9132), y)
 EXTRA_CFLAGS += -DCONFIG_BIG_ENDIAN
 ARCH := mips
 CROSS_COMPILE := mips-openwrt-linux-
-KSRC := /work/rt3070/linux-3.3.8/
+KSRC := /work/drivers/rt3070/linux-3.3.8/
 endif
 
 ifeq ($(CONFIG_PLATFORM_DMP_PHILIPS), y)
