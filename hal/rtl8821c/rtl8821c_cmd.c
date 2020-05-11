@@ -110,11 +110,15 @@ void rtl8821c_set_FwPwrMode_cmd(PADAPTER adapter, u8 psmode)
 	u8 hw_port = rtw_hal_get_port(adapter);
 
 	if (pwrpriv->dtim > 0)
-		RTW_INFO(FUNC_ADPT_FMT ": dtim=%d, HW port id=%d\n", FUNC_ADPT_ARG(adapter),
-			pwrpriv->dtim, psmode == PS_MODE_ACTIVE ? pwrpriv->current_lps_hw_port_id : hw_port);
+	{
+		//RTW_INFO(FUNC_ADPT_FMT ": dtim=%d, HW port id=%d\n", FUNC_ADPT_ARG(adapter),
+		//	pwrpriv->dtim, psmode == PS_MODE_ACTIVE ? pwrpriv->current_lps_hw_port_id : hw_port);
+	}
 	else
-		RTW_INFO(FUNC_ADPT_FMT ": HW port id=%d\n", FUNC_ADPT_ARG(adapter),
-			psmode == PS_MODE_ACTIVE ? pwrpriv->current_lps_hw_port_id : hw_port);
+	{
+		//RTW_INFO(FUNC_ADPT_FMT ": HW port id=%d\n", FUNC_ADPT_ARG(adapter),
+		//	psmode == PS_MODE_ACTIVE ? pwrpriv->current_lps_hw_port_id : hw_port);
+	}
 
 	smart_ps = pwrpriv->smart_ps;
 	switch (psmode) {
@@ -215,8 +219,8 @@ void rtl8821c_set_FwPwrMode_cmd(PADAPTER adapter, u8 psmode)
 	else
 		fw_psmode_str = "UNSPECIFIED";
 
-	RTW_INFO(FUNC_ADPT_FMT": fw ps mode = %s, drv ps mode = %d, rlbm = %d , smart_ps = %d, allQueueUAPSD = %d\n", 
-				FUNC_ADPT_ARG(adapter), fw_psmode_str, psmode, rlbm, smart_ps, allQueueUAPSD);
+	//RTW_INFO(FUNC_ADPT_FMT": fw ps mode = %s, drv ps mode = %d, rlbm = %d , smart_ps = %d, allQueueUAPSD = %d\n", 
+	//			FUNC_ADPT_ARG(adapter), fw_psmode_str, psmode, rlbm, smart_ps, allQueueUAPSD);
 
 	SET_PWR_MODE_SET_CMD_ID(h2c, CMD_ID_SET_PWR_MODE);
 	SET_PWR_MODE_SET_CLASS(h2c, CLASS_SET_PWR_MODE);
@@ -248,7 +252,7 @@ void rtl8821c_set_FwPwrMode_cmd(PADAPTER adapter, u8 psmode)
 		SET_PWR_MODE_SET_TWO_ANTENNA_EN(h2c, 0);/*bit-22*/
 	}
 
-	RTW_INFO("%s=> psmode:%02x, smart_ps:%02x, PowerState:%02x\n", __func__, psmode, smart_ps, PowerState);
+	//RTW_INFO("%s=> psmode:%02x, smart_ps:%02x, PowerState:%02x\n", __func__, psmode, smart_ps, PowerState);
 
 #ifdef CONFIG_BT_COEXIST
 	rtw_btcoex_RecordPwrMode(adapter, h2c + 1, RTW_HALMAC_H2C_MAX_SIZE - 1);
