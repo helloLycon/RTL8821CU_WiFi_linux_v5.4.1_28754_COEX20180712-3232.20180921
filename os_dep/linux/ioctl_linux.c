@@ -1281,10 +1281,25 @@ static int rtw_wx_set_freq(struct net_device *dev,
 			   struct iw_request_info *info,
 			   union iwreq_data *wrqu, char *extra)
 {
-
+	int i;
+	_adapter *iface = NULL;
 	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
 	int exp = 1, freq = 0, div = 0;
+	struct dvobj_priv *dvobj = adapter_to_dvobj(padapter);
 
+	for (i = 0; i < dvobj->iface_nums; i++) {
+		iface = dvobj->padapters[i];
+		/*if (iface && check_fwstate(&(iface->mlmepriv), WIFI_MONITOR_STATE) == _TRUE) {
+			printk("monitor, %s\n", iface->netif_up?"up":"down");
+		}*/
+		if (iface && check_fwstate(&(iface->mlmepriv), WIFI_STATION_STATE) == _TRUE) {
+			//printk("station, up = %d closed = %d\n", iface->netif_up, iface->net_closed);
+			if(iface->netif_up) {
+				return -EBUSY;
+			}
+		}
+	}
+	//printk("padapter = %p dvobj = %p\n", padapter, padapter->dvobj);
 	rtw_ps_deny(padapter, PS_DENY_IOCTL);
 	if (rtw_pwr_wakeup(padapter) == _FALSE)
 		goto exit;

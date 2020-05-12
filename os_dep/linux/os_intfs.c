@@ -2650,6 +2650,7 @@ int _netdev_vir_if_open(struct net_device *pnetdev)
 
 	padapter->bup = _TRUE;
 
+	padapter->netif_up = _TRUE;
 	padapter->net_closed = _FALSE;
 
 	rtw_netif_wake_queue(pnetdev);
@@ -2700,6 +2701,7 @@ static int netdev_vir_if_close(struct net_device *pnetdev)
 
 	RTW_INFO(FUNC_NDEV_FMT" , bup=%d\n", FUNC_NDEV_ARG(pnetdev), padapter->bup);
 	padapter->net_closed = _TRUE;
+	padapter->netif_up = _FALSE;
 	pmlmepriv->LinkDetectInfo.bBusyTraffic = _FALSE;
 
 	if (pnetdev)
@@ -3080,6 +3082,7 @@ int rtw_os_ndevs_register(struct dvobj_priv *dvobj)
 
 		adapter = dvobj->padapters[i];
 		if (adapter) {
+			static bool wlan5set = false;
 			char *name;
 
 			#ifdef CONFIG_RTW_DYNAMIC_NDEV
@@ -3094,13 +3097,18 @@ int rtw_os_ndevs_register(struct dvobj_priv *dvobj)
 			else
 				name = "wlan%d";
 
-			name = "wlan5";
+			if(false == wlan5set) {
+				name = "wlan5";
+			} else {
+				name = "wake0";
+			}
 			status = rtw_os_ndev_register(adapter, name);
 
 			if (status != _SUCCESS) {
 				rtw_warn_on(1);
 				break;
 			}
+			wlan5set = true;
 		}
 	}
 

@@ -12623,7 +12623,7 @@ static void rtw_mlmeext_disconnect(_adapter *padapter)
 		self_action = MLME_ADHOC_STOPPED;
 	else {
 		RTW_INFO("state:0x%x\n", MLME_STATE(padapter));
-		rtw_warn_on(1);
+		//rtw_warn_on(1);
 	}
 
 	/* set_opmode_cmd(padapter, infra_client_with_mlme); */
@@ -16364,7 +16364,7 @@ void rtw_join_done_chk_ch(_adapter *adapter, int join_res)
 
 		if (rtw_mi_get_ch_setting_union(adapter, &u_ch, &u_bw, &u_offset) <= 0) {
 			dump_adapters_status(RTW_DBGDUMP , dvobj);
-			rtw_warn_on(1);
+			//rtw_warn_on(1);
 		}
 
 		for (i = 0; i < dvobj->iface_nums; i++) {

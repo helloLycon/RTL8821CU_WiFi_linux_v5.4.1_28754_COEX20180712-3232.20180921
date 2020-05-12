@@ -1138,8 +1138,8 @@ static u8 _rtw_phydm_rfk_condition_check(_adapter *adapter, u8 is_scaning, u8 if
 		}
 		else {
 			rfk_allowed = rtw_mi_stayin_union_ch_chk(adapter) ? _TRUE : _FALSE;
-			if (rfk_allowed == _FALSE)
-				RTW_ERR("[RFK-CHK] RF-K not allowed due to ld_iface not stayin union ch\n");
+			//if (rfk_allowed == _FALSE)
+			//	RTW_ERR("[RFK-CHK] RF-K not allowed due to ld_iface not stayin union ch\n");
 		}
 	}
 

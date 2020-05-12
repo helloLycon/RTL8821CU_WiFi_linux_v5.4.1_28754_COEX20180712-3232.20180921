@@ -4890,7 +4890,8 @@ s32 pre_recv_entry(union recv_frame *precvframe, u8 *pphy_status)
 			if (_rtw_memcmp(pda, adapter_pno_mac_addr(primary_padapter),
 					ETH_ALEN) != _TRUE)
 		#endif
-			RTW_INFO("%s [WARN] Cannot find appropriate adapter - mac_addr : "MAC_FMT"\n", __func__, MAC_ARG(pda));
+			//RTW_INFO("%s [WARN] Cannot find appropriate adapter - mac_addr : "MAC_FMT"\n", __func__, MAC_ARG(pda));
+			precvframe->u.hdr.adapter = rtw_get_monitor_iface_by_macddr(primary_padapter , pda);
 			/*rtw_warn_on(1);*/
 		} else
 			precvframe->u.hdr.adapter = iface;

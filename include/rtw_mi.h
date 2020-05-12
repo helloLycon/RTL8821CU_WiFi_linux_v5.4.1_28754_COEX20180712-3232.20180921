@@ -287,6 +287,7 @@ u8 rtw_mi_buddy_stay_in_p2p_mode(_adapter *padapter);
 
 _adapter *rtw_get_iface_by_id(_adapter *padapter, u8 iface_id);
 _adapter *rtw_get_iface_by_macddr(_adapter *padapter, const u8 *mac_addr);
+_adapter *rtw_get_monitor_iface_by_macddr(_adapter *padapter, const u8 *mac_addr);
 _adapter *rtw_get_iface_by_hwport(_adapter *padapter, u8 hw_port);
 
 void rtw_mi_buddy_clone_bcmc_packet(_adapter *padapter, union recv_frame *precvframe, u8 *pphy_status);

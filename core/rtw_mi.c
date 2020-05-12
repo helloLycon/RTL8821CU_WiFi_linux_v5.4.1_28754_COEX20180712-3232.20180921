@@ -1297,6 +1297,37 @@ _adapter *rtw_get_iface_by_macddr(_adapter *padapter, const u8 *mac_addr)
 		return NULL;
 }
 
+_adapter *rtw_get_monitor_iface_by_macddr(_adapter *padapter, const u8 *mac_addr)
+{
+	int i;
+	_adapter *iface = NULL;
+	u8 bmatch = _FALSE;
+	struct dvobj_priv *dvobj = adapter_to_dvobj(padapter);
+
+	/*static int cnter = 0;
+	if( (cnter++ % 1000)==0) {
+		printk("dvobj = %p\n", dvobj);
+	}*/
+	for (i = 0; i < dvobj->iface_nums; i++) {
+		iface = dvobj->padapters[i];
+		/*if( (cnter % 1000)==0) {
+			printk("iface = %p\n", iface);
+		}*/
+		/*if ((iface) && (_rtw_memcmp(mac_addr, adapter_mac_addr(iface), ETH_ALEN))) {
+			bmatch = _TRUE;
+			break;
+		}*/
+		if (iface && check_fwstate(&(iface->mlmepriv), WIFI_MONITOR_STATE) == _TRUE) {
+			bmatch = _TRUE;
+			break;
+		}
+	}
+	if (bmatch)
+		return iface;
+	else
+		return NULL;
+}
+
 _adapter *rtw_get_iface_by_hwport(_adapter *padapter, u8 hw_port)
 {
 	int i;
