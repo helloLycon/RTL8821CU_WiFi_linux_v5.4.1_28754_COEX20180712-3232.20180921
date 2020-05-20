@@ -3060,6 +3060,7 @@ void rtw_inetaddr_notifier_unregister(void)
 
 int rtw_os_ndevs_register(struct dvobj_priv *dvobj)
 {
+	extern char *dev_who;
 	int i, status = _SUCCESS;
 	struct registry_priv *regsty = dvobj_to_regsty(dvobj);
 	_adapter *adapter;
@@ -3100,7 +3101,13 @@ int rtw_os_ndevs_register(struct dvobj_priv *dvobj)
 			if(false == wlan5set) {
 				name = "wlan5";
 			} else {
-				name = "wake0";
+				if(dev_who[0] == 'C' && dev_who[1] == '3') {
+					/* dev: C3xx */
+					name = "wake0";
+				} else if(dev_who[0] == 'B' && dev_who[1] == '2') {
+					/* dev: B2xx */
+					name = "wake1";
+				}
 			}
 			status = rtw_os_ndev_register(adapter, name);
 

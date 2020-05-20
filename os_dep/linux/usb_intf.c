@@ -18,6 +18,7 @@
 #include <hal_data.h>
 
 #include <platform_ops.h>
+#include <linux/moduleparam.h>
 
 #ifndef CONFIG_USB_HCI
 #error "CONFIG_USB_HCI shall be on!\n"
@@ -1621,11 +1622,14 @@ static void rtw_dev_remove(struct usb_interface *pusb_intf)
 extern int console_suspend_enabled;
 #endif
 
+char *dev_who= "world";
+module_param(dev_who,charp,S_IRUSR);
+
 static int __init rtw_drv_entry(void)
 {
 	int ret = 0;
 
-	RTW_PRINT("module init start\n");
+	RTW_PRINT("module init start(who = %s)\n", dev_who);
 	dump_drv_version(RTW_DBGDUMP);
 #ifdef BTCOEXVERSION
 	RTW_PRINT(DRV_NAME" BT-Coex version = %s\n", BTCOEXVERSION);
