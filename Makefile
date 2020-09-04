@@ -109,7 +109,7 @@ CONFIG_PLATFORM_ARM_PXA2XX = n
 CONFIG_PLATFORM_ARM_S3C6K4 = n
 CONFIG_PLATFORM_MIPS_RMI = n
 CONFIG_PLATFORM_RTD2880B = n
-CONFIG_PLATFORM_MIPS_AR9132 = y
+CONFIG_PLATFORM_MIPS_AR9132 = n
 CONFIG_PLATFORM_RTK_DMP = n
 CONFIG_PLATFORM_MIPS_PLM = n
 CONFIG_PLATFORM_MSTAR389 = n
@@ -135,7 +135,7 @@ CONFIG_PLATFORM_MSTAR = n
 CONFIG_PLATFORM_SZEBOOK = n
 CONFIG_PLATFORM_ARM_SUNxI = n
 CONFIG_PLATFORM_ARM_SUN6I = n
-CONFIG_PLATFORM_ARM_SUN7I = n
+CONFIG_PLATFORM_ARM_SUN7I = y
 CONFIG_PLATFORM_ARM_SUN8I_W3P1 = n
 CONFIG_PLATFORM_ARM_SUN8I_W5P1 = n
 CONFIG_PLATFORM_ACTIONS_ATM702X = n
@@ -1677,11 +1677,15 @@ KSRC :=/home/android_sdk/Allwinner/a31/kitkat-a3x_v4.5/lichee/linux-3.3
 endif
 
 ifeq ($(CONFIG_PLATFORM_ARM_SUN7I), y)
+#EXTRA_CFLAGS += -D__LINUX_ARM_ARCH__=7
+#EXTRA_CFLAGS += -DCONFIG_PAGE_OFFSET=0x80000000
+#EXTRA_CFLAGS += -DCONFIG_PHYS_OFFSET=0x80000000
+#EXTRA_CFLAGS += -DCONFIG_GENERIC_ATOMIC64
 EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN
-EXTRA_CFLAGS += -DCONFIG_PLATFORM_ARM_SUN7I
+#EXTRA_CFLAGS += -DCONFIG_PLATFORM_ARM_SUN7I
 EXTRA_CFLAGS += -DCONFIG_TRAFFIC_PROTECT
 # default setting for Android 4.1, 4.2, 4.3, 4.4
-EXTRA_CFLAGS += -DCONFIG_CONCURRENT_MODE
+#EXTRA_CFLAGS += -DCONFIG_CONCURRENT_MODE
 EXTRA_CFLAGS += -DCONFIG_IOCTL_CFG80211 -DRTW_USE_CFG80211_STA_EVENT
 EXTRA_CFLAGS +=  -DCONFIG_QOS_OPTIMIZATION
 
@@ -1695,15 +1699,8 @@ _PLATFORM_FILES += platform/platform_ARM_SUNnI_sdio.o
 endif
 
 ARCH := arm
-# ===Cross compile setting for Android 4.2 SDK ===
-#CROSS_COMPILE := /home/android_sdk/Allwinner/a20_evb/lichee/out/android/common/buildroot/external-toolchain/bin/arm-linux-gnueabi-
-#KSRC := /home/android_sdk/Allwinner/a20_evb/lichee/linux-3.3
-# ==== Cross compile setting for Android 4.3 SDK =====
-#CROSS_COMPILE := /home/android_sdk/Allwinner/a20/android-jb43/lichee/out/android/common/buildroot/external-toolchain/bin/arm-linux-gnueabi-
-#KSRC := /home/android_sdk/Allwinner/a20/android-jb43/lichee/linux-3.4
-# ==== Cross compile setting for kitkat-a20_v4.4 =====
-CROSS_COMPILE := /home/android_sdk/Allwinner/a20/kitkat-a20_v4.4/lichee/out/android/common/buildroot/external-toolchain/bin/arm-linux-gnueabi-
-KSRC := /home/android_sdk/Allwinner/a20/kitkat-a20_v4.4/lichee/linux-3.4
+CROSS_COMPILE := arm-linux-gnueabihf-
+KSRC := /livesuit-work/sunxi-bsp/build/sun7i_defconfig-linux/
 endif
 
 ifeq ($(CONFIG_PLATFORM_ARM_SUN8I_W3P1), y)
